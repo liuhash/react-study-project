@@ -154,6 +154,76 @@ render-props形成jsx嵌套地狱的问题。\
 难以维护。所有功能加在一个类组件中。\
 class不利于代码压缩，也不利于Ts。\
 tree shaking 去掉无用的代码。\
+新功能推荐用hooks实现。\
+读取状态，修改状态。\
+修改状态直接传新值。\
+只能出现在函数中，不能在循环中。\
+hooks的调用顺序来识别每一个hook。\
+除了渲染UI，别的都是side effect。\
+useEffect=componentDidMount+componentDidUpdate\
+操作DOM也是副作用.\
+参数2，数组,useEffect的依赖项，只有依赖项改变时会触发useEffect。\
+类似vue的watch。\
+如果依赖指定为空数组。只会在组件第一次渲染时执行。\
+组件更新时不会触发。相当于componentDidMount。\
+注册事件，发请求都用空依赖\
+一些副作用需要清楚。如订阅外部数据源，开启定时器，注册事件。\
+可能引起内存泄漏。\
+函数里面可以return 在函数销毁时会自动执行。\
+返回的函数称为清理函数，在组件销毁时执行。\
+自定义hook。\
+把组件逻辑提取到函数中。\
 
+以后会在redux发请求。useEffect不能async。
+要在函数里面用一个函数,使用async，
+因为要清除副作用，所以只能是async.
+不能在useEffect调用数组，只要deps里面的发生改变。
+就会触发useEffect。而数组是引用类型，不停的改变。
+取消组件 取消请求。设置一个变量。在销毁时设置为True.
+然后如果是true。就不会设置set
+只要父组件更新，子组件就会更新。
+useContext
+context 跨组件共享数据。
+createContext Consumer,Provider。
+提供的Provider用包裹。消费的用Consumer包裹。
+在提供组件处包裹。在使用处用useContext(context)
+如果在不同文件中，要把context导出去。
+
+useMemo
+memo(组件)包裹函数组件变成纯组件。像v-pre
+只会进行浅层对比，只会比地址发没发生改变，和pureComponent一样。
+记住任何数据。可以完全替代useCallback。类似vue computed
+useMemo比memo进行了更细度的优化。
+
+useCallback
+做性能优化的。记住函数的引用，配合usememo。需要传依赖数组。
+依赖数组变化才变化。
+useCallback(fn,deps)=useMemo(()=>fn,deps)
+
+render-props和HOC会导致组件嵌套。
+hooks实现代码复用。
+class的缺点
+1.this指向问题。
+2.class组件不利于代码的压缩与优化
+3.class提供了生命周期函数，一个功能拆开到多个钩子函数。
+减轻开发者心智负担。
+一个功能写到一起。
+
+redux可以在任何库内使用。存多个组件共享的数据。
+redux-thunk 发送异步请求
+react-redux 与react有关的。
+Flux最早的react状态管理工具，由react在2014年推出。
+reducer+flux。
+mapstore,store.state.xxx
+mapGetters 提交mutation。准备action。
+action处理异步,提交mutation。
+MapMutations store.commit(mutation)
+
+redux核心概念
+store,action,reducer。
+dispatch action
+Action creators
+reducer 处理action
+接收状态，处理action，返回新状态，不会改变旧状态。
 
 
